@@ -1,6 +1,6 @@
 import math
 import random
-
+#math core
 class MathENG1:
     @staticmethod
     def sigmoid(x):
@@ -46,21 +46,30 @@ class MathENG1:
             x * sech * a * (1 + 3 * 0.044715 * x**2)
         )
     
+    @staticmethod
+    def mse_loss(output, target):
+        return sum((o - t)**2 for o, t in zip(output, target)) / len(output)
+    
+#ai core
 class Neuron:
     def __init__(self, inputs):
-        self.weights = [
-            random.uniform(-1, 1)
-            for _ in range(inputs)
-        ]
-
+        self.weights = [random.uniform(-1, 1) for _ in range(inputs)]
         self.bias = random.uniform(-1, 1)
+        self.last_inputs = None
+        self.last_output = None 
     
-    def forward(self, inputs):
+    def forward(self, inputs, activation=None):
+        self.last_inputs = inputs 
+        
         result = self.bias
-
         for x, w in zip(inputs, self.weights):
             result += x * w
-
+        
+        self.last_output = result
+        
+        if activation:
+            result = activation(result) 
+        
         return result
     
     def backward(self, error, learning_rate):
@@ -83,40 +92,48 @@ class Layer:
             )
 
 
-    def forward(self, inputs):
+    def forward(self, inputs, activation=None):
+        self.last_inputs = inputs
+        self.activation = activation
         outputs = []
-
+        
         for neuron in self.neurons:
-            outputs.append(
-                neuron.forward(inputs)
-            )
-
+            outputs.append(neuron.forward(inputs, activation))
+        
         return outputs
 
-    def backward(self, errors, learning_rate):
+    def backward(self, errors, learning_rate, activation_derivative=None):
+
+        if activation_derivative:
+            errors = [
+                e * activation_derivative(neuron.last_output)
+                for e, neuron in zip(errors, self.neurons)
+            ]
+        
         for neuron, error in zip(self.neurons, errors):
             neuron.backward(error, learning_rate)
+        
+        return self._compute_input_errors(errors)
+
+    def _compute_input_errors(self, errors):
+        input_errors = [0] * len(self.last_inputs)
+        
+        for neuron, error in zip(self.neurons, errors):
+            for i, weight in enumerate(neuron.weights):
+                input_errors[i] += error * weight
+        
+        return input_errors
 
 
 class Network:
-    def __init__(self, input_neurons, layers, neurons_per_layer, output_neurons):
-        self.input_neurons = input_neurons
+    def __init__(self, layer_sizes, activation='gelu'):
         self.layers = []
-
-        for i in range(layers):
-            if i == 0:
-                input_size = input_neurons
-            else:
-                input_size = neurons_per_layer
-
+        self.activation_name = activation
+        
+        for i in range(len(layer_sizes) - 1):
             self.layers.append(
-                Layer(input_size, neurons_per_layer)
+                Layer(layer_sizes[i], layer_sizes[i+1])
             )
-
-        self.output_layer = Layer(
-            neurons_per_layer,
-            output_neurons
-        )
 
 
     def forward(self, inputs):
@@ -129,20 +146,28 @@ class Network:
 
         return output
 
-    def train(self, inputs, target, epochs=1000, learning_rate=0.01):
-
+    def train(self, X_train, Y_train, epochs=1000, learning_rate=0.01):
+        losses = []
+        
         for epoch in range(epochs):
+            total_loss = 0
+            
+            for inputs, target in zip(X_train, Y_train):
+                output = self.forward(inputs)
+                loss = MathENG1.mse_loss(output, target)
+                total_loss += loss
+                
+                self._backward(target, learning_rate)
+            
+            losses.append(total_loss / len(X_train))
+            
+            if epoch % 100 == 0:
+                print(f"Epoch {epoch}, Loss: {losses[-1]:.6f}")
+        
+        return losses
 
-            output = self.forward(inputs)
-
-            errors = []
-
-            for o, t in zip(output, target):
-                errors.append(t - o)
-
-
-            # навчання вихідного шару
-            self.output_layer.backward(
-                errors,
-                learning_rate
-            )
+    def _backward(self, target, learning_rate):
+        errors = [t - o for t, o in zip(target, self.forward_output)]
+        
+        for layer in reversed(self.layers):
+            errors = layer.backward(errors, learning_rate)
