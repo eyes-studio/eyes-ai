@@ -1,17 +1,68 @@
-Eyes AI License
+Eyes-Network Open Source License
 
 Copyright (c) 2026 eyes-studio™
 
-Permission is granted to use, study, modify, and share this software for
-personal, educational, and non-commercial purposes.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
 
-Commercial use of this software, including using it in products, services,
-applications, or projects that generate revenue, is prohibited without
-written permission from eyes-studio™.
+1. Open Source Freedom
 
-You may not sell, sublicense, or redistribute this software as part of a
-commercial product without authorization.
+The Software is open source. Everyone has the right to:
+- use the Software for any purpose;
+- study how the Software works;
+- modify the Software;
+- create derivative works;
+- distribute original or modified versions.
 
-The software is provided "AS IS", without warranty of any kind.
+2. Source Code Availability
 
-For commercial licensing, please contact eyes-studio™.
+The source code of the Software must remain available when distributed.
+Any modifications should clearly indicate that changes were made.
+
+3. Attribution
+
+When redistributing the Software or derivative works, users must keep:
+
+Copyright (c) 2026 eyes-studio™
+
+and provide reasonable acknowledgment of the original project
+"Eyes-Network".
+
+4. Name Protection
+
+This license allows modification and redistribution of the Software.
+However, modified versions must not falsely represent themselves as the
+official Eyes-Network project.
+
+5. No Warranty
+
+The Software is provided "AS IS", without warranty of any kind, express or
+implied, including but not limited to warranties of performance, reliability,
+or fitness for a particular purpose.
+
+The authors or copyright holders shall not be liable for any claim, damages,
+or other liability arising from the use of the Software.
+
+6. AI and Neural Network Usage
+
+The Software may be used to create, train, modify, and deploy artificial
+intelligence systems, neural networks, machine learning models, and related
+applications.
+
+No additional permission is required for AI research, education, personal,
+commercial, or public projects.
+
+7. License Continuity
+
+Any copy, modification, or distribution of this Software must include this
+license text or an equivalent notice.
+
+---
+
+Eyes-Network is an open source project created by eyes-studio™.
+Built for learning, research, and development of artificial intelligence.
