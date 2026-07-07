@@ -1,6 +1,6 @@
-# Eyes AI
+# AICORE
 
-A Python library for creating neural networks and tokenizers.
+A Python library for creating neural networks that includes neural network creation and a tokenizer.
 
 ---
 
@@ -8,21 +8,23 @@ A Python library for creating neural networks and tokenizers.
 
 **eyes-studio™**
 
+eyes-studio is a small, unofficial software development company with a very small team—consisting of just one person.
+
 ---
 
 ## About
 
-Eyes AI is a lightweight Python library for creating and experimenting with local AI models.
+AICORE is a python library for easily creating neural networks and small text-based AIs
 
-The library allows developers to build neural networks, process text using tokenizers, and train their own AI models without relying on ready-made solutions.
+This library allows developers to easily create AI models using just a few commands and to tokenize text for AI.
 
 ---
 
 ## Features
 
-- 🧠 Neural network creation
-- 🔤 Text tokenization
-- ⚙️ Model training
-- 💻 Local AI development
+- creating neural networks with a single command
+- easy neural network training
+- tokenizer for text processing for a neural network
+- creating AI locally on the device
 
 ---
